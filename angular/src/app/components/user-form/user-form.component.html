@@ -1,0 +1,37 @@
+<!-- src/app/components/user-form/user-form.component.html -->
+
+<div class="container">
+    <h2>{{ isEditMode ? 'Edit User' : 'Create User' }}</h2>
+    <form (ngSubmit)="saveUser()">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" class="form-control" [(ngModel)]="user.firstName" name="firstName" required />
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" class="form-control" [(ngModel)]="user.lastName" name="lastName" required />
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" id="address" class="form-control" [(ngModel)]="user.address" name="address" required />
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" id="city" class="form-control" [(ngModel)]="user.city" name="city" required />
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <input type="text" id="state" class="form-control" [(ngModel)]="user.state" name="state" required />
+      </div>
+      <div class="form-group">
+        <label for="zip">Zip</label>
+        <input type="text" id="zip" class="form-control" [(ngModel)]="user.zip" name="zip" required />
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" id="phoneNumber" class="form-control" [(ngModel)]="user.phoneNumber" name="phoneNumber" required />
+      </div>
+      <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update' : 'Create' }}</button>
+    </form>
+  </div>
+  
