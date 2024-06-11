@@ -1,5 +1,3 @@
-// src/app/components/user-form/user-form.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
@@ -12,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UserFormComponent implements OnInit {
   user: User = {
+    id: undefined,
     firstName: '',
     lastName: '',
     address: '',
@@ -29,13 +28,18 @@ export class UserFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.isEditMode = true;
-      this.userService.getUserByPhoneNumber(id).subscribe(user => {
-        this.user = user;
-      });
-    }
+    this.route.paramMap.subscribe(params => {
+      const userId = params.get('id');
+      if (userId) {
+        this.isEditMode = true;
+        this.userService.getUserById(+userId).subscribe(user => {
+          this.user = user;
+        });
+      } else if (history.state.user) {
+        this.isEditMode = true;
+        this.user = history.state.user;
+      }
+    });
   }
 
   saveUser(): void {
@@ -48,5 +52,9 @@ export class UserFormComponent implements OnInit {
         this.router.navigate(['/users']);
       });
     }
+  }
+
+  cancel(): void {
+    this.router.navigate(['/users']);
   }
 }

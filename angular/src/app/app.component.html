@@ -1,8 +1,14 @@
 <div style="text-align:center">
+  <div class="nav-buttons">
+    <button mat-raised-button color="primary" (click)="navigateTo('users')">User List</button>
+    <button mat-raised-button color="accent" (click)="navigateTo('user-form')"> Add User</button>
+  </div>
   <h1>
-    Welcome to Angular and Spring Boot Demo!
+    Welcome to {{ title }}!
   </h1>
 </div>
+
+
 <div class="container mt-4">
   <router-outlet></router-outlet>
 </div>

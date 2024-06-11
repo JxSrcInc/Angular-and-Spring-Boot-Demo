@@ -23,6 +23,10 @@ export class UserService {
     return this.http.get<User>(`${this.baseUrl}/getFirstName?phoneNumber=${phoneNumber}`);
   }
 
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/${id}`);
+  }
+
   createUser(user: User): Observable<User> {
     return this.http.post<User>(this.baseUrl, user);
   }

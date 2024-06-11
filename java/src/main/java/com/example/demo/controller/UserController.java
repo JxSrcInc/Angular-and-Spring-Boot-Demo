@@ -20,6 +20,11 @@ public class UserController {
                 .orElse("User not found");
     }
 
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id).orElse(null);
+    }
+
     @GetMapping
     public List<User> getAllUsers() {
         List<User> users = userService.getAllUsers();

@@ -4,21 +4,21 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
-
+import { Router } from '@angular/router'; // Import Router
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'address', 'city', 'state', 'zip', 'phoneNumber'];
+  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'address', 'city', 'state', 'zip', 'phoneNumber', 'action'];
   dataSource = new MatTableDataSource<User>([]);
   errorMessage: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -58,5 +58,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  editUser(user: User): void {
+    this.router.navigate(['/user-form'], { state: { user } });
   }
 }

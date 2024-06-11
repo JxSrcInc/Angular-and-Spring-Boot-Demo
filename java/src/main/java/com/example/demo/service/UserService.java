@@ -17,6 +17,10 @@ public class UserService {
         return userRepository.findByPhoneNumber(phoneNumber).map(User::getFirstName);
     }
 
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+    
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
