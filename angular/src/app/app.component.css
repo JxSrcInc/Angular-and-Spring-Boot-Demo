@@ -4,10 +4,10 @@
   align-items: center;
   padding: 20px; /* Increase padding for more space around buttons */
   gap: 20px; /* Increase gap between buttons */
-  background-color: #007bff; /* Set background color to blue */
+  background-color: rgb(15, 15, 57); /* Set background color to blue */
   border-bottom: 1px solid #ccc;
 }
 
 .nav-buttons button {
-  padding: 10px 20px; /* Add padding inside buttons */
+  margin-right: 20px; /* Add margin to the right of each button */
 }
