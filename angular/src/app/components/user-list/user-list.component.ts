@@ -5,6 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { Router } from '@angular/router'; // Import Router
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -18,7 +20,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -27,12 +29,10 @@ export class UserListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     // Defer the initialization to make sure the paginator and sort are ready
     setTimeout(() => {
-      console.log(this.paginator)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     },100);
   }
-
 
   loadData(): void {
     this.userService.getUsers().subscribe({
@@ -62,5 +62,22 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
   editUser(user: User): void {
     this.router.navigate(['/user-form'], { state: { user } });
+  }
+
+  deleteUser(user: User): void {
+    if (confirm(`Are you sure you want to delete user ${user.firstName} ${user.lastName}?`)) {
+      this.userService.deleteUser(user.id!).subscribe({
+        next: () => {
+          this.snackBar.open('User deleted successfully', 'Close', {
+            duration: 3000,
+          });
+          this.loadData(); // Refresh the data after deletion
+        },
+        error: (err) => {
+          this.errorMessage = 'An error occurred while deleting the user.';
+          console.error('Error deleting user', err);
+        }
+      });
+    }
   }
 }
